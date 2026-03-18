@@ -3,221 +3,218 @@ export const OPTION_SCALE_MAX = 3;
 const questions = [
   {
     id: 1,
-    construct: "Analytical Thinking",
-    area: "Analytical Autonomy",
+    construct: "Working Memory",
+    area: "Syntactic Recall",
     prompt:
-      "Scenario: A production bug appears and users are blocked. What is your first response pattern?",
+      "Scenario: You need to write a complex data transformation (e.g., mapping, filtering, and reducing a nested JSON array). How do you approach this?",
     recommendation:
-      "For the next 2 weeks, run a 10-minute manual root-cause pass before opening any AI assistant.",
+      "Turn off autocomplete for 30 minutes daily. Force yourself to recall standard library methods and syntax from memory.",
     options: [
       {
         value: 0,
-        title: "AI-first immediate fix",
-        scenario:
-          "I paste traces into AI immediately and apply the first plausible fix.",
+        title: "Total Prompting",
+        scenario: "I describe the data structure to an AI and copy-paste the generated one-liner without writing it myself.",
       },
       {
         value: 1,
-        title: "Minimal local check",
-        scenario:
-          "I do a quick local scan, then depend on AI for diagnosis and patch strategy.",
+        title: "Autocomplete Dependence",
+        scenario: "I start typing, but rely heavily on AI inline suggestions (e.g., Copilot) to complete the logic and method chains.",
       },
       {
         value: 2,
-        title: "Hybrid diagnosis",
-        scenario: "I run my own trace first, then use AI to validate alternative causes.",
+        title: "Guided Recall",
+        scenario: "I write the logic manually, only consulting AI or docs to verify a specific method signature (like reduce arguments).",
       },
       {
         value: 3,
-        title: "Manual root-cause first",
-        scenario: "I isolate the cause myself and only use AI for secondary review.",
+        title: "Independent Recall",
+        scenario: "I write the entire transformation pipeline from memory, completely independent of AI or autocomplete.",
       },
     ],
   },
   {
     id: 2,
-    construct: "Cognitive Offloading",
-    area: "Memory Retention",
+    construct: "Problem Solving",
+    area: "Diagnostic Resilience",
     prompt:
-      "Scenario: Your IDE assistance is temporarily unavailable. How do you continue coding?",
+      "Scenario: Your CI/CD pipeline fails intermittently with a cryptic 'Race Condition / Timeout' error during integration tests. How do you troubleshoot?",
     recommendation:
-      "Keep a short daily recall log: rewrite 3 key APIs from memory before coding.",
+      "Before pasting logs into an AI, spend 15 minutes manually tracing the execution path and forming your own hypothesis.",
     options: [
       {
         value: 0,
-        title: "Memory replaced by tools",
-        scenario:
-          "Without AI/autocomplete, I frequently stall and wait for hints.",
+        title: "Blind Delegation",
+        scenario: "I immediately paste the raw error log into an AI and ask for the fix, trying whatever it suggests first.",
       },
       {
         value: 1,
-        title: "Partial recall only",
-        scenario: "I remember fragments but depend on AI to complete most syntax/API usage.",
+        title: "AI-Led Hypothesis",
+        scenario: "I skim the logs, but ask AI to generate possible causes and follow its debugging plan step-by-step.",
       },
       {
         value: 2,
-        title: "Mostly independent recall",
-        scenario: "I usually recall what I need; AI is mostly a speed-up.",
+        title: "Human-Led, AI-Assisted",
+        scenario: "I trace the failure to a specific test, then use AI only to explain a specific obscure framework error.",
       },
       {
         value: 3,
-        title: "Strong internal recall",
-        scenario: "I can rebuild key syntax and APIs from memory before checking tools.",
+        title: "Manual Root-Cause Analysis",
+        scenario: "I read the logs, attach a debugger, and manually isolate the race condition to understand the true root cause.",
       },
     ],
   },
   {
     id: 3,
-    construct: "Problem Solving",
-    area: "Metacognitive Depth",
+    construct: "Systems Thinking",
+    area: "Code Comprehension",
     prompt:
-      "Scenario: You receive an ambiguous feature request with unclear constraints. What do you do first?",
+      "Scenario: You are assigned to review a large Pull Request containing a significant architectural change in an unfamiliar domain.",
     recommendation:
-      "Use a 3-step scratch ritual: define constraints, list 2 approaches, then consult AI.",
+      "Review the PR manually by drawing a simple block diagram of the data flow before looking at any AI-generated summaries.",
     options: [
       {
         value: 0,
-        title: "Full delegation",
-        scenario: "I ask AI for full architecture and steps before I frame the problem.",
+        title: "AI Summary Approval",
+        scenario: "I ask an AI to summarize the PR. If the summary sounds good and tests pass, I approve it.",
       },
       {
         value: 1,
-        title: "Shallow decomposition",
-        scenario: "I define the problem loosely, then depend on AI for actual structure.",
+        title: "Fragmented Reading",
+        scenario: "I read the code, but whenever I see a complex file, I ask an AI to explain it rather than tracing the imports and logic.",
       },
       {
         value: 2,
-        title: "Structured collaboration",
-        scenario: "I break the problem down first, then use AI to compare approaches.",
+        title: "Targeted Clarification",
+        scenario: "I manually trace the execution flow, using AI only to clarify specific, localized algorithms or unfamiliar patterns.",
       },
       {
         value: 3,
-        title: "Self-led decomposition",
-        scenario: "I generate and evaluate my own plan before using AI at all.",
+        title: "Deep Mental Modeling",
+        scenario: "I manually map out the data flow, check for edge cases, and fully internalize the architecture before approving.",
       },
     ],
   },
   {
     id: 4,
-    construct: "Autonomous Execution",
-    area: "From-Scratch Confidence",
+    construct: "Creative Problem Solving",
+    area: "Architectural Synthesis",
     prompt:
-      "Scenario: You must build a small feature in an unfamiliar area. How do you begin?",
+      "Scenario: You are tasked with designing the database schema and API structure for a brand-new, real-time notification service.",
     recommendation:
-      "Block one weekly no-AI coding session focused on small end-to-end implementation.",
+      "Whiteboard your architecture and define trade-offs manually. Only use AI later to critique your existing design.",
     options: [
       {
         value: 0,
-        title: "Cannot start without AI",
-        scenario: "I feel blocked on blank screens unless AI gives me the initial structure.",
+        title: "Generative Architecture",
+        scenario: "I prompt an AI with the requirements and adopt its suggested schema and API design as my baseline.",
       },
       {
         value: 1,
-        title: "AI-dependent kickoff",
-        scenario: "I can outline lightly, but still need AI to start implementation confidently.",
+        title: "AI Scaffolding",
+        scenario: "I use AI to generate the initial entities and relationships, then manually tweak them to fit our specific domain.",
       },
       {
         value: 2,
-        title: "Independent kickoff",
-        scenario: "I can start and make progress solo; AI helps refine and accelerate later.",
+        title: "Independent Drafting",
+        scenario: "I draft the core architecture myself, using AI mostly to brainstorm edge cases or evaluate database technology choices.",
       },
       {
         value: 3,
-        title: "Strong from-scratch confidence",
-        scenario: "I can solve and ship small-medium tasks independently before AI input.",
+        title: "Sovereign Design",
+        scenario: "I whiteboard the entire architecture, define trade-offs, and construct the schema completely independently.",
       },
     ],
   },
   {
     id: 5,
-    construct: "Creativity & Synthesis",
-    area: "Idea Generation",
+    construct: "Knowledge Acquisition",
+    area: "Learning Autonomy",
     prompt:
-      "Scenario: Product asks for three novel feature ideas by end of day. What is your ideation approach?",
+      "Scenario: Your team is adopting a new complex state management library (or framework) that you have never used before.",
     recommendation:
-      "Draft 5 raw ideas yourself before asking AI to expand or critique them.",
+      "Read the official 'Getting Started' docs and build a small sandbox app from scratch without AI assistance.",
     options: [
       {
         value: 0,
-        title: "AI generates idea zero",
-        scenario: "My first viable ideas usually come directly from AI prompts.",
+        title: "Just-In-Time Prompting",
+        scenario: "I skip the docs and just ask an AI 'how do I do X in this library' whenever I need to write a feature.",
       },
       {
         value: 1,
-        title: "AI shapes initial direction",
-        scenario: "I start with broad context, but AI still creates most of the concept set.",
+        title: "AI Tutorialization",
+        scenario: "I ask AI to teach me the library via a summary and rely on its generated examples to understand the core concepts.",
       },
       {
         value: 2,
-        title: "Human-first ideation",
-        scenario: "I draft core ideas myself, then use AI to challenge and expand them.",
+        title: "Documentation First",
+        scenario: "I read the official docs to learn the basics, using AI only to clarify concepts I find confusing after reading.",
       },
       {
         value: 3,
-        title: "Strong synthesis muscle",
-        scenario: "I can produce diverse ideas from user/system signals before asking AI.",
+        title: "Deep Internalization",
+        scenario: "I read the docs deeply, build a mental model, and write a throwaway prototype from scratch to fully internalize it.",
       },
     ],
   },
   {
     id: 6,
-    construct: "Systems Thinking",
-    area: "Architecture Comprehension",
+    construct: "Analytical Thinking",
+    area: "Contextual Refactoring",
     prompt:
-      "Scenario: AI gives a large refactor that appears to pass tests. How do you decide whether to merge?",
+      "Scenario: You need to add a feature to a 10-year-old legacy module with no tests, hidden side-effects, and spaghetti logic.",
     recommendation:
-      "Adopt a merge gate: explain integration path and 2 failure cases before accepting AI output.",
+      "Write manual characterization tests to prove you understand the legacy behavior before modifying it.",
     options: [
       {
         value: 0,
-        title: "Blind integration risk",
-        scenario: "I often accept AI code while not fully understanding architecture impact.",
+        title: "Black-Box Rewrite",
+        scenario: "I highlight the file, ask AI to 'refactor this and add my feature', and trust the output if it compiles.",
       },
       {
         value: 1,
-        title: "Partial understanding",
-        scenario: "I check basics, but edge cases and failure paths are frequently unclear.",
+        title: "AI-Guided Surgery",
+        scenario: "I ask AI to explain the file and generate the refactored functions, while I just stitch the pieces together.",
       },
       {
         value: 2,
-        title: "Reasoned integration",
-        scenario: "I validate flow and key failure modes before integrating AI output.",
+        title: "Manual Tracing",
+        scenario: "I trace the critical paths manually, but use AI to help extract specific pure functions or generate initial unit tests.",
       },
       {
         value: 3,
-        title: "Architecture ownership",
-        scenario: "I can explain full system fit and risks before any AI-generated merge.",
+        title: "Surgical Precision",
+        scenario: "I write characterization tests myself, understand the side-effects, and carefully apply safe refactoring patterns step-by-step.",
       },
     ],
   },
   {
     id: 7,
-    construct: "Brain Debug Muscle",
-    area: "Debugging Muscle",
+    construct: "Metacognitive Depth",
+    area: "Handling Ambiguity",
     prompt:
-      "Scenario: A recurring bug returns for the third time this sprint. What debugging workflow do you follow?",
+      "Scenario: A product manager gives you a high-level, vague user story: 'Make the dashboard load much faster for power users.'",
     recommendation:
-      "For recurring bugs, force a debugger-first workflow before using auto-fix suggestions.",
+      "Force yourself to translate vague requirements into concrete engineering tasks and metrics on paper before opening your IDE.",
     options: [
       {
         value: 0,
-        title: "Auto-fix default",
-        scenario: "I rely on quick-fix tools first, even for repeated bug patterns.",
+        title: "AI Task Decomposition",
+        scenario: "I feed the user story to an AI and ask it to generate the technical sub-tasks and my implementation plan.",
       },
       {
         value: 1,
-        title: "Debugger as backup",
-        scenario: "I try quick-fix first and only debug manually when the patch fails.",
+        title: "Collaborative Breakdown",
+        scenario: "I brainstorm a little, but rely heavily on AI to break the vague problem down into actionable engineering steps.",
       },
       {
         value: 2,
-        title: "Balanced debugging",
-        scenario: "I inspect runtime behavior first, then use tool fixes to speed cleanup.",
+        title: "Independent Scoping",
+        scenario: "I define the metrics and bottlenecks myself, using AI only to suggest specific optimization techniques for our stack.",
       },
       {
         value: 3,
-        title: "Debugger-first discipline",
-        scenario: "I reproduce and trace with breakpoints/logs before any auto-fix.",
+        title: "Strategic Ownership",
+        scenario: "I independently profile the app, identify the exact slow queries, and create a targeted, data-backed execution plan.",
       },
     ],
   },
