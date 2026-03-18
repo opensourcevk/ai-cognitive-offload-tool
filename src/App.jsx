@@ -1,4 +1,25 @@
 import { useState } from "react";
+import {
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  LinearProgress,
+  Chip,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  FormControl,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Box,
+  Divider,
+  Fade,
+  Slide,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import questions, { OPTION_SCALE_MAX } from "./Questions";
 import { methodology, researchSources } from "./researchBasis";
 import "./App.css";
@@ -16,7 +37,7 @@ function getBand(score) {
       title: "Atrophy Risk",
       description:
         "Your pattern suggests heavy cognitive offloading and reduced independent reasoning capacity.",
-      colorClass: "red-text text-darken-2",
+      color: "error",
     };
   }
 
@@ -25,7 +46,7 @@ function getBand(score) {
       title: "Balanced User",
       description:
         "You show a mixed profile: useful AI leverage, but selected cognitive areas need active maintenance.",
-      colorClass: "amber-text text-darken-3",
+      color: "warning",
     };
   }
 
@@ -33,7 +54,7 @@ function getBand(score) {
     title: "Synergistic Thinker",
     description:
       "You use AI as a force multiplier while retaining strong core cognitive and debugging autonomy.",
-    colorClass: "green-text text-darken-2",
+    color: "success",
   };
 }
 
@@ -41,23 +62,23 @@ function getImpactProfile(sustainabilityScore) {
   if (sustainabilityScore <= 3) {
     return {
       impactLabel: "High Impact",
-      chipClass: "app-chip danger",
-      barClass: "red darken-2",
+      chipColor: "error",
+      barColor: "error",
     };
   }
 
   if (sustainabilityScore <= 6) {
     return {
       impactLabel: "Moderate Impact",
-      chipClass: "app-chip warning",
-      barClass: "amber darken-2",
+      chipColor: "warning",
+      barColor: "warning",
     };
   }
 
   return {
     impactLabel: "Low Impact",
-    chipClass: "app-chip good",
-    barClass: "teal",
+    chipColor: "success",
+    barColor: "success",
   };
 }
 
@@ -125,239 +146,320 @@ export default function App() {
   );
 
   return (
-    <main className="app-shell blue-grey lighten-5">
-      <section className="container">
-        <div className="card-panel z-depth-2 app-panel">
-          <header className="section-header">
-            <h4 className="blue-text text-darken-3 app-title">
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      <Card elevation={3} sx={{ borderRadius: 3, overflow: 'hidden' }}>
+        <Box sx={{ p: { xs: 3, md: 5 } }}>
+          <Box mb={4} textAlign="center">
+            <Typography variant="h4" component="h1" color="primary.main" fontWeight={700} gutterBottom>
               The Cognitive Decay Diagnostic
-            </h4>
-            <p className="grey-text text-darken-1 app-subtitle">
+            </Typography>
+            <Typography variant="subtitle1" color="text.secondary">
               Cognitive Sustainability Assessment
-            </p>
-          </header>
+            </Typography>
+          </Box>
 
           {phase === "landing" && (
-            <div className="section app-in">
-              <p className="grey-text text-darken-1">
-                AI Decay is the hidden loss of reasoning, memory, and
-                problem-solving depth caused by passive dependence on AI tools.
-              </p>
-              <p className="grey-text text-darken-1">
-                This 7-question diagnostic estimates your Cognitive
-                Sustainability Score and pinpoints which thinking muscles are
-                being affected most.
-              </p>
-              <p className="grey-text text-darken-1">
-                Choose the option that matches your typical behavior, not your
-                ideal behavior.
-              </p>
-              <div className="app-pill-row">
-                <span className="app-pill">7 Questions</span>
-                <span className="app-pill">~3 Minutes</span>
-                <span className="app-pill">Area-Level Insights</span>
-              </div>
-              <div className="app-evidence">
-                <h6 className="app-section-title">Methodology</h6>
-                <ul className="browser-default app-method-list">
-                  {methodology.map((item) => (
-                    <li key={item.title}>
-                      <strong>{item.title}:</strong> {item.detail}
-                    </li>
-                  ))}
-                </ul>
-                <details>
-                  <summary>Research basis</summary>
-                  <ul className="browser-default app-ref-list">
-                    {researchSources.map((source) => (
-                      <li key={source.url}>
-                        <a href={source.url} target="_blank" rel="noreferrer">
-                          {source.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </details>
-              </div>
-              <button
-                className="btn waves-effect waves-light blue darken-2 pulse"
-                type="button"
-                onClick={() => setPhase("quiz")}
-              >
-                Start Test
-              </button>
-            </div>
+            <Fade in={phase === "landing"} timeout={500}>
+              <Box>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  AI Decay is the hidden loss of reasoning, memory, and
+                  problem-solving depth caused by passive dependence on AI tools.
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  This 7-question diagnostic estimates your Cognitive
+                  Sustainability Score and pinpoints which thinking muscles are
+                  being affected most.
+                </Typography>
+                <Typography variant="body1" color="text.secondary" paragraph>
+                  Choose the option that matches your typical behavior, not your
+                  ideal behavior.
+                </Typography>
+
+                <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', my: 3 }}>
+                  <Chip label="7 Questions" color="primary" variant="outlined" />
+                  <Chip label="~3 Minutes" color="primary" variant="outlined" />
+                  <Chip label="Area-Level Insights" color="primary" variant="outlined" />
+                </Box>
+
+                <Card variant="outlined" sx={{ mb: 4, bgcolor: 'grey.50' }}>
+                  <CardContent>
+                    <Typography variant="h6" gutterBottom color="text.primary">
+                      Methodology
+                    </Typography>
+                    <Box component="ul" sx={{ pl: 2, m: 0, mb: 2 }}>
+                      {methodology.map((item) => (
+                        <Typography component="li" variant="body2" key={item.title} sx={{ mb: 1 }}>
+                          <strong>{item.title}:</strong> {item.detail}
+                        </Typography>
+                      ))}
+                    </Box>
+                    <Accordion elevation={0} sx={{ bgcolor: 'transparent', '&:before': { display: 'none' } }}>
+                      <AccordionSummary expandIcon={<ExpandMoreIcon />} sx={{ px: 0 }}>
+                        <Typography fontWeight={600} color="primary.dark">Research basis</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails sx={{ px: 0, pt: 0 }}>
+                        <Box component="ul" sx={{ pl: 2, m: 0 }}>
+                          {researchSources.map((source) => (
+                            <Typography component="li" variant="body2" key={source.url} sx={{ mb: 1 }}>
+                              <a href={source.url} target="_blank" rel="noreferrer" style={{ color: '#1976d2', textDecoration: 'none' }}>
+                                {source.label}
+                              </a>
+                            </Typography>
+                          ))}
+                        </Box>
+                      </AccordionDetails>
+                    </Accordion>
+                  </CardContent>
+                </Card>
+
+                <Box textAlign="center">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={() => setPhase("quiz")}
+                    sx={{ px: 4, py: 1.5, borderRadius: 2 }}
+                  >
+                    Start Test
+                  </Button>
+                </Box>
+              </Box>
+            </Fade>
           )}
 
           {phase === "quiz" && (
-            <div className="section app-in">
-              <div className="row app-row-meta">
-                <div className="col s12 m6">
-                  <strong>
+            <Slide in={phase === "quiz"} direction="left" mountOnEnter unmountOnExit>
+              <Box>
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2, flexWrap: 'wrap', gap: 1 }}>
+                  <Typography variant="body2" fontWeight="bold" color="text.primary">
                     Question {currentIndex + 1} of {questions.length}
-                  </strong>
-                </div>
-                <div className="col s12 m6 m-right">
-                  {remaining} questions remaining
-                </div>
-              </div>
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    {remaining} questions remaining
+                  </Typography>
+                </Box>
 
-              <div className="progress">
-                <div
-                  className="determinate blue darken-2"
-                  style={{ width: `${progressPercent}%` }}
+                <LinearProgress
+                  variant="determinate"
+                  value={progressPercent}
+                  sx={{ height: 8, borderRadius: 4, mb: 4 }}
                 />
-              </div>
 
-              <article
-                key={`question-${currentQuestion.id}`}
-                className="card-panel blue lighten-5 app-question-card"
-              >
-                <p className="blue-text text-darken-2 app-construct">
-                  {currentQuestion.construct}
-                </p>
-                <h5 className="app-question">{currentQuestion.prompt}</h5>
-                <p className="app-question-helper grey-text text-darken-1">
-                  Pick the scenario closest to your default behavior.
-                </p>
-              </article>
+                <Card
+                  key={`question-${currentQuestion.id}`}
+                  variant="outlined"
+                  sx={{ mb: 4, bgcolor: 'primary.50', borderColor: 'primary.100' }}
+                >
+                  <CardContent>
+                    <Typography variant="overline" color="primary.main" fontWeight={700}>
+                      {currentQuestion.construct}
+                    </Typography>
+                    <Typography variant="h6" component="h2" gutterBottom sx={{ mt: 1, mb: 2, fontWeight: 500 }}>
+                      {currentQuestion.prompt}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      Pick the scenario closest to your default behavior.
+                    </Typography>
+                  </CardContent>
+                </Card>
 
-              <fieldset
-                key={`options-${currentQuestion.id}`}
-                className="app-fieldset"
-              >
-                <legend className="sr-only">Select one answer</legend>
-                {currentQuestion.options.map((option) => {
-                  const inputId = `question-${currentQuestion.id}-${option.value}`;
-                  return (
-                    <div
-                      key={`${currentQuestion.id}-${option.value}`}
-                      className={`app-option-card ${
-                        selectedValue === option.value ? "selected" : ""
-                      }`}
-                    >
-                      <label htmlFor={inputId} className="app-option-label">
-                        <input
-                          id={inputId}
-                          data-testid={`option-${option.value}`}
-                          className="with-gap"
-                          type="radio"
-                          name={`question-${currentQuestion.id}`}
-                          value={option.value}
-                          checked={selectedValue === option.value}
-                          onChange={() => onAnswerSelect(option.value)}
-                        />
-                        <span>{option.title}</span>
-                      </label>
-                      <small className="app-option-hint" aria-hidden="true">
-                        {option.scenario}
-                      </small>
-                    </div>
-                  );
-                })}
-              </fieldset>
+                <FormControl component="fieldset" fullWidth sx={{ mb: 4 }}>
+                  <RadioGroup
+                    key={`options-${currentQuestion.id}`}
+                    name={`question-${currentQuestion.id}`}
+                    value={selectedValue ?? ''}
+                    onChange={(e) => onAnswerSelect(Number(e.target.value))}
+                  >
+                    {currentQuestion.options.map((option) => {
+                      const isSelected = selectedValue === option.value;
+                      return (
+                        <Card
+                          key={`${currentQuestion.id}-${option.value}`}
+                          variant="outlined"
+                          sx={{
+                            mb: 2,
+                            cursor: 'pointer',
+                            transition: 'all 0.2s ease-in-out',
+                            bgcolor: isSelected ? 'primary.50' : 'background.paper',
+                            borderColor: isSelected ? 'primary.main' : 'divider',
+                            '&:hover': {
+                              borderColor: 'primary.light',
+                              bgcolor: isSelected ? 'primary.50' : 'grey.50',
+                              transform: 'translateY(-2px)',
+                              boxShadow: 1
+                            }
+                          }}
+                          onClick={() => onAnswerSelect(option.value)}
+                        >
+                          <CardContent sx={{ p: 2, '&:last-child': { pb: 2 } }}>
+                            <FormControlLabel
+                              value={option.value}
+                              control={
+                                <Radio
+                                  inputProps={{ 'data-testid': `option-${option.value}` }}
+                                  color="primary"
+                                />
+                              }
+                              label={
+                                <Box>
+                                  <Typography variant="subtitle1" fontWeight={500} color={isSelected ? 'primary.dark' : 'text.primary'}>
+                                    {option.title}
+                                  </Typography>
+                                  <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                                    {option.scenario}
+                                  </Typography>
+                                </Box>
+                              }
+                              sx={{ m: 0, width: '100%', alignItems: 'flex-start' }}
+                            />
+                          </CardContent>
+                        </Card>
+                      );
+                    })}
+                  </RadioGroup>
+                </FormControl>
 
-              <footer className="row app-actions">
-                <div className="col s12 m6 grey-text text-darken-1">
-                  Answered: {answeredCount}/{questions.length}
-                </div>
-                <div className="col s12 m6 m-right">
-                  <button
-                    className="btn waves-effect waves-light blue darken-2"
-                    type="button"
+                <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 4, flexWrap: 'wrap', gap: 2 }}>
+                  <Typography variant="body2" color="text.secondary">
+                    Answered: {answeredCount}/{questions.length}
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
                     disabled={selectedValue === undefined}
                     onClick={onNext}
+                    sx={{ px: 4 }}
                   >
-                    {currentIndex === questions.length - 1
-                      ? "View Results"
-                      : "Next"}
-                  </button>
-                </div>
-              </footer>
-            </div>
+                    {currentIndex === questions.length - 1 ? "View Results" : "Next"}
+                  </Button>
+                </Box>
+              </Box>
+            </Slide>
           )}
 
           {phase === "results" && (
-            <div className="section app-in">
-              <p className="grey-text text-darken-1">
-                Cognitive Sustainability Score
-              </p>
-              <p className="app-score blue-text text-darken-3">{score} / 10</p>
+            <Fade in={phase === "results"} timeout={800}>
+              <Box>
+                <Box textAlign="center" mb={4}>
+                  <Typography variant="overline" color="text.secondary" fontWeight={600}>
+                    Cognitive Sustainability Score
+                  </Typography>
+                  <Typography variant="h2" color="primary.dark" fontWeight={700} sx={{ my: 1 }}>
+                    {score} / 10
+                  </Typography>
 
-              <div className="progress" aria-hidden="true">
-                <div
-                  className="determinate teal"
-                  style={{ width: `${(score / 10) * 100}%` }}
-                />
-              </div>
+                  <LinearProgress
+                    variant="determinate"
+                    value={(score / 10) * 100}
+                    color={band.color}
+                    sx={{ height: 12, borderRadius: 6, mb: 3, maxWidth: 400, mx: 'auto' }}
+                  />
 
-              <h5 className={band.colorClass}>{band.title}</h5>
-              <p className="grey-text text-darken-1">{band.description}</p>
+                  <Typography variant="h5" color={`${band.color}.main`} fontWeight={600} gutterBottom>
+                    {band.title}
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary" maxWidth={600} mx="auto">
+                    {band.description}
+                  </Typography>
+                </Box>
 
-              <div className="divider app-divider" />
+                <Divider sx={{ my: 4 }} />
 
-              <h6 className="app-section-title">Most Impacted Areas</h6>
-              {impactedAreas.length === 0 && (
-                <p className="green-text text-darken-2">
-                  No high-impact areas detected. Keep your current learning
-                  discipline.
-                </p>
-              )}
+                <Typography variant="h6" color="text.primary" fontWeight={700} gutterBottom>
+                  Most Impacted Areas
+                </Typography>
 
-              {impactedAreas.map((area, index) => (
-                <article
-                  key={area.id}
-                  className="card-panel app-impact-card"
-                  style={{ animationDelay: `${index * 80}ms` }}
-                >
-                  <div className="app-impact-top">
-                    <strong>{area.area}</strong>
-                    <span className={area.chipClass}>{area.impactLabel}</span>
-                  </div>
-                  <div className="progress app-area-progress" aria-hidden="true">
-                    <div
-                      className={`determinate ${area.barClass}`}
-                      style={{ width: `${area.sustainabilityScore * 10}%` }}
-                    />
-                  </div>
-                  <p className="app-impact-score">
-                    Sustainability: {area.sustainabilityScore}/10
-                  </p>
-                  <p className="grey-text text-darken-1 app-tip">
-                    <strong>Recovery drill:</strong> {area.recommendation}
-                  </p>
-                </article>
-              ))}
+                {impactedAreas.length === 0 && (
+                  <Card variant="outlined" sx={{ bgcolor: 'success.50', borderColor: 'success.200', mb: 4 }}>
+                    <CardContent>
+                      <Typography color="success.dark" fontWeight={500}>
+                        No high-impact areas detected. Keep your current learning
+                        discipline.
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                )}
 
-              <h6 className="app-section-title">Full Area Breakdown</h6>
-              <div className="app-breakdown-list">
-                {areaInsights.map((area) => (
-                  <div key={`breakdown-${area.id}`} className="app-breakdown-row">
-                    <div className="app-breakdown-head">
-                      <span>{area.area}</span>
-                      <span>{area.sustainabilityScore}/10</span>
-                    </div>
-                    <div className="progress" aria-hidden="true">
-                      <div
-                        className={`determinate ${area.barClass}`}
-                        style={{ width: `${area.sustainabilityScore * 10}%` }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 4 }}>
+                  {impactedAreas.map((area, index) => (
+                    <Slide direction="up" in={true} timeout={400 + index * 200} key={area.id}>
+                      <Card variant="outlined" sx={{ borderColor: `${area.barColor}.200` }}>
+                        <CardContent>
+                          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: 1 }}>
+                            <Typography variant="subtitle1" fontWeight={600}>
+                              {area.area}
+                            </Typography>
+                            <Chip
+                              label={area.impactLabel}
+                              color={area.chipColor}
+                              size="small"
+                              sx={{ fontWeight: 600 }}
+                            />
+                          </Box>
+                          <LinearProgress
+                            variant="determinate"
+                            value={area.sustainabilityScore * 10}
+                            color={area.barColor}
+                            sx={{ height: 8, borderRadius: 4, mb: 2 }}
+                          />
+                          <Typography variant="body2" color="text.primary" fontWeight={600} gutterBottom>
+                            Sustainability: {area.sustainabilityScore}/10
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary" sx={{ bgcolor: 'grey.50', p: 1.5, borderRadius: 1, mt: 1 }}>
+                            <strong>Recovery drill:</strong> {area.recommendation}
+                          </Typography>
+                        </CardContent>
+                      </Card>
+                    </Slide>
+                  ))}
+                </Box>
 
-              <button
-                className="btn waves-effect waves-light blue darken-2"
-                type="button"
-                onClick={onRestart}
-              >
-                Retake Test
-              </button>
-            </div>
+                <Typography variant="h6" color="text.primary" fontWeight={700} gutterBottom>
+                  Full Area Breakdown
+                </Typography>
+                <Card variant="outlined" sx={{ mb: 4 }}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                    {areaInsights.map((area, index) => (
+                      <Box key={`breakdown-${area.id}`}>
+                        <Box sx={{ p: 2 }}>
+                          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 1 }}>
+                            <Typography variant="body2" fontWeight={600}>
+                              {area.area}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary" fontWeight={500}>
+                              {area.sustainabilityScore}/10
+                            </Typography>
+                          </Box>
+                          <LinearProgress
+                            variant="determinate"
+                            value={area.sustainabilityScore * 10}
+                            color={area.barColor}
+                            sx={{ height: 6, borderRadius: 3 }}
+                          />
+                        </Box>
+                        {index < areaInsights.length - 1 && <Divider />}
+                      </Box>
+                    ))}
+                  </Box>
+                </Card>
+
+                <Box textAlign="center">
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    onClick={onRestart}
+                    sx={{ px: 4, py: 1.5, borderRadius: 2 }}
+                  >
+                    Retake Test
+                  </Button>
+                </Box>
+              </Box>
+            </Fade>
           )}
-        </div>
-      </section>
-    </main>
+        </Box>
+      </Card>
+    </Container>
   );
 }
