@@ -7,12 +7,12 @@ export const methodology = [
   {
     title: "Behaviorally anchored options (BARS style)",
     detail:
-      "Options represent increasing levels of cognitive autonomy, from AI-delegated behavior to self-led reasoning.",
+      "Options represent increasing levels of cognitive autonomy, from AI-delegated behavior (Automation Bias) to self-led reasoning.",
   },
   {
     title: "Construct coverage",
     detail:
-      "Items target cognitive offloading, analytical atrophy, metacognitive depth, debugging muscle, creativity, and systems comprehension.",
+      "Items target Automation Bias, the Generation Effect (learning by doing), cognitive offloading, metacognitive depth, analytical atrophy, and system comprehension.",
   },
 ];
 
@@ -27,15 +27,15 @@ export const researchSources = [
     url: "https://doi.org/10.1016/j.tics.2015.11.002",
   },
   {
-    label: "Risko et al. (2019): Everyday memory and cognitive offloading",
-    url: "https://doi.org/10.1016/j.cognition.2018.11.017",
+    label: "Parasuraman & Manzey (2010): Complacency and Bias in Human Use of Automation: An Attentional Integration",
+    url: "https://doi.org/10.1518/155534310X12846004772506",
+  },
+  {
+    label: "Slamecka & Graf (1978): The Generation Effect: Delineation of a phenomenon",
+    url: "https://doi.org/10.1037/0278-7393.4.6.592",
   },
   {
     label: "ILO Working Paper 140 (2025): Generative AI and jobs",
     url: "https://doi.org/10.54394/HETP0387",
-  },
-  {
-    label: "McDaniel et al. (2007): SJT response instructions and validity",
-    url: "https://doi.org/10.1111/j.1744-6570.2007.00065.x",
   },
 ];

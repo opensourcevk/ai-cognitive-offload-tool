@@ -36,33 +36,33 @@ describe("Cognitive Decay Diagnostic", () => {
     expect(nextButton).toBeEnabled();
   });
 
-  test("calculates a 10/10 score and synergistic thinker band", async () => {
+  test("calculates a 100 score and high cognitive sovereignty band", async () => {
     const user = userEvent.setup();
     render(<App />);
 
     await user.click(screen.getByRole("button", { name: /start test/i }));
     await answerAllQuestions(user, 3);
 
-    expect(screen.getByText("10 / 10")).toBeInTheDocument();
+    expect(screen.getByText("100")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /synergistic thinker/i })
+      screen.getByRole("heading", { name: /high cognitive sovereignty/i })
     ).toBeInTheDocument();
   });
 
-  test("calculates a 0/10 score and atrophy risk band", async () => {
+  test("calculates a 0 score and severe cognitive atrophy band", async () => {
     const user = userEvent.setup();
     render(<App />);
 
     await user.click(screen.getByRole("button", { name: /start test/i }));
     await answerAllQuestions(user, 0);
 
-    expect(screen.getByText("0 / 10")).toBeInTheDocument();
+    expect(screen.getByText("0")).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: /atrophy risk/i })
+      screen.getByRole("heading", { name: /severe cognitive atrophy/i })
     ).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /most impacted areas/i })
     ).toBeInTheDocument();
-    expect(screen.getAllByText(/debugging muscle/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/syntactic recall/i).length).toBeGreaterThan(0);
   });
 });

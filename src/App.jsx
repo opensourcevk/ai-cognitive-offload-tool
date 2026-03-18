@@ -32,34 +32,43 @@ function clamp(value, min, max) {
 }
 
 function getBand(score) {
-  if (score <= 3) {
+  if (score <= 40) {
     return {
-      title: "Atrophy Risk",
+      title: "Severe Cognitive Atrophy",
       description:
-        "Your pattern suggests heavy cognitive offloading and reduced independent reasoning capacity.",
+        "Your pattern suggests extreme over-reliance on AI, risking loss of fundamental software engineering skills and independent reasoning.",
       color: "error",
     };
   }
 
-  if (score <= 7) {
+  if (score <= 65) {
     return {
-      title: "Balanced User",
+      title: "Developing Automation Bias",
       description:
-        "You show a mixed profile: useful AI leverage, but selected cognitive areas need active maintenance.",
+        "You are leaning heavily on AI for tasks you used to do independently, which may degrade your core problem-solving muscles over time.",
       color: "warning",
     };
   }
 
+  if (score <= 85) {
+    return {
+      title: "Balanced AI Synergy",
+      description:
+        "You effectively use AI to accelerate your workflow while actively maintaining key analytical and cognitive skills.",
+      color: "info",
+    };
+  }
+
   return {
-    title: "Synergistic Thinker",
+    title: "High Cognitive Sovereignty",
     description:
-      "You use AI as a force multiplier while retaining strong core cognitive and debugging autonomy.",
+      "You maintain strict control over your cognitive processes and architecture, using AI only as a secondary tool to complement your deep expertise.",
     color: "success",
   };
 }
 
 function getImpactProfile(sustainabilityScore) {
-  if (sustainabilityScore <= 3) {
+  if (sustainabilityScore <= 40) {
     return {
       impactLabel: "High Impact",
       chipColor: "error",
@@ -67,7 +76,7 @@ function getImpactProfile(sustainabilityScore) {
     };
   }
 
-  if (sustainabilityScore <= 6) {
+  if (sustainabilityScore <= 65) {
     return {
       impactLabel: "Moderate Impact",
       chipColor: "warning",
@@ -119,15 +128,15 @@ export default function App() {
   };
 
   const rawScore = answers.reduce((sum, value) => sum + value, 0);
-  const score = clamp(Math.round((rawScore / MAX_RAW_SCORE) * 10), 0, 10);
+  const score = clamp(Math.round((rawScore / MAX_RAW_SCORE) * 100), 0, 100);
   const band = getBand(score);
   const areaInsights = questions
     .map((question, index) => {
       const value = answers[index] ?? 0;
       const sustainabilityScore = clamp(
-        Math.round((value / SCALE_MAX) * 10),
+        Math.round((value / SCALE_MAX) * 100),
         0,
-        10
+        100
       );
 
       return {
@@ -142,7 +151,7 @@ export default function App() {
     .sort((areaA, areaB) => areaA.sustainabilityScore - areaB.sustainabilityScore);
 
   const impactedAreas = areaInsights.filter(
-    (area) => area.sustainabilityScore <= 6
+    (area) => area.sustainabilityScore <= 65
   );
 
   return (
@@ -343,15 +352,15 @@ export default function App() {
               <Box>
                 <Box textAlign="center" mb={4}>
                   <Typography variant="overline" color="text.secondary" fontWeight={600}>
-                    Cognitive Sustainability Score
+                    Cognitive Sustainability Index
                   </Typography>
                   <Typography variant="h2" color="primary.dark" fontWeight={700} sx={{ my: 1 }}>
-                    {score} / 10
+                    {score}
                   </Typography>
 
                   <LinearProgress
                     variant="determinate"
-                    value={(score / 10) * 100}
+                    value={score}
                     color={band.color}
                     sx={{ height: 12, borderRadius: 6, mb: 3, maxWidth: 400, mx: 'auto' }}
                   />
@@ -399,12 +408,12 @@ export default function App() {
                           </Box>
                           <LinearProgress
                             variant="determinate"
-                            value={area.sustainabilityScore * 10}
+                            value={area.sustainabilityScore}
                             color={area.barColor}
                             sx={{ height: 8, borderRadius: 4, mb: 2 }}
                           />
                           <Typography variant="body2" color="text.primary" fontWeight={600} gutterBottom>
-                            Sustainability: {area.sustainabilityScore}/10
+                            Sustainability: {area.sustainabilityScore}/100
                           </Typography>
                           <Typography variant="body2" color="text.secondary" sx={{ bgcolor: 'grey.50', p: 1.5, borderRadius: 1, mt: 1 }}>
                             <strong>Recovery drill:</strong> {area.recommendation}
@@ -428,12 +437,12 @@ export default function App() {
                               {area.area}
                             </Typography>
                             <Typography variant="body2" color="text.secondary" fontWeight={500}>
-                              {area.sustainabilityScore}/10
+                              {area.sustainabilityScore}/100
                             </Typography>
                           </Box>
                           <LinearProgress
                             variant="determinate"
-                            value={area.sustainabilityScore * 10}
+                            value={area.sustainabilityScore}
                             color={area.barColor}
                             sx={{ height: 6, borderRadius: 3 }}
                           />
