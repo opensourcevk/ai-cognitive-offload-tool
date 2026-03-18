@@ -1,5 +1,6 @@
 import { useState } from "react";
 import questions, { OPTION_SCALE_MAX } from "./Questions";
+import { methodology, researchSources } from "./researchBasis";
 import "./App.css";
 
 const SCALE_MAX = OPTION_SCALE_MAX;
@@ -147,10 +148,36 @@ export default function App() {
                 Sustainability Score and pinpoints which thinking muscles are
                 being affected most.
               </p>
+              <p className="grey-text text-darken-1">
+                Choose the option that matches your typical behavior, not your
+                ideal behavior.
+              </p>
               <div className="app-pill-row">
                 <span className="app-pill">7 Questions</span>
                 <span className="app-pill">~3 Minutes</span>
                 <span className="app-pill">Area-Level Insights</span>
+              </div>
+              <div className="app-evidence">
+                <h6 className="app-section-title">Methodology</h6>
+                <ul className="browser-default app-method-list">
+                  {methodology.map((item) => (
+                    <li key={item.title}>
+                      <strong>{item.title}:</strong> {item.detail}
+                    </li>
+                  ))}
+                </ul>
+                <details>
+                  <summary>Research basis</summary>
+                  <ul className="browser-default app-ref-list">
+                    {researchSources.map((source) => (
+                      <li key={source.url}>
+                        <a href={source.url} target="_blank" rel="noreferrer">
+                          {source.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </details>
               </div>
               <button
                 className="btn waves-effect waves-light blue darken-2 pulse"
@@ -190,6 +217,9 @@ export default function App() {
                   {currentQuestion.construct}
                 </p>
                 <h5 className="app-question">{currentQuestion.prompt}</h5>
+                <p className="app-question-helper grey-text text-darken-1">
+                  Pick the scenario closest to your default behavior.
+                </p>
               </article>
 
               <fieldset

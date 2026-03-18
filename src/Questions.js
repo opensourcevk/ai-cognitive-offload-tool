@@ -6,19 +6,21 @@ const questions = [
     construct: "Analytical Thinking",
     area: "Analytical Autonomy",
     prompt:
-      "Before attempting root-cause analysis, I paste stack traces into AI and usually trust the first fix suggestion.",
+      "Scenario: A production bug appears and users are blocked. What is your first response pattern?",
     recommendation:
       "For the next 2 weeks, run a 10-minute manual root-cause pass before opening any AI assistant.",
     options: [
       {
         value: 0,
         title: "AI-first immediate fix",
-        scenario: "I paste the error into AI first and apply the first suggestion quickly.",
+        scenario:
+          "I paste traces into AI immediately and apply the first plausible fix.",
       },
       {
         value: 1,
         title: "Minimal local check",
-        scenario: "I skim logs briefly, then rely on AI for diagnosis and patch direction.",
+        scenario:
+          "I do a quick local scan, then depend on AI for diagnosis and patch strategy.",
       },
       {
         value: 2,
@@ -37,14 +39,15 @@ const questions = [
     construct: "Cognitive Offloading",
     area: "Memory Retention",
     prompt:
-      "Without autocomplete or AI, I struggle to recall syntax and APIs I used recently.",
+      "Scenario: Your IDE assistance is temporarily unavailable. How do you continue coding?",
     recommendation:
       "Keep a short daily recall log: rewrite 3 key APIs from memory before coding.",
     options: [
       {
         value: 0,
         title: "Memory replaced by tools",
-        scenario: "Without AI/autocomplete, I often cannot continue until hints appear.",
+        scenario:
+          "Without AI/autocomplete, I frequently stall and wait for hints.",
       },
       {
         value: 1,
@@ -68,7 +71,7 @@ const questions = [
     construct: "Problem Solving",
     area: "Metacognitive Depth",
     prompt:
-      "When a problem is ambiguous, I skip decomposing it myself and ask AI for a full approach immediately.",
+      "Scenario: You receive an ambiguous feature request with unclear constraints. What do you do first?",
     recommendation:
       "Use a 3-step scratch ritual: define constraints, list 2 approaches, then consult AI.",
     options: [
@@ -99,7 +102,7 @@ const questions = [
     construct: "Autonomous Execution",
     area: "From-Scratch Confidence",
     prompt:
-      "My confidence solving new tasks from scratch has dropped because I depend on AI to get started.",
+      "Scenario: You must build a small feature in an unfamiliar area. How do you begin?",
     recommendation:
       "Block one weekly no-AI coding session focused on small end-to-end implementation.",
     options: [
@@ -130,7 +133,7 @@ const questions = [
     construct: "Creativity & Synthesis",
     area: "Idea Generation",
     prompt:
-      "My first feature ideas usually come from AI prompts, not from synthesizing user and system context myself.",
+      "Scenario: Product asks for three novel feature ideas by end of day. What is your ideation approach?",
     recommendation:
       "Draft 5 raw ideas yourself before asking AI to expand or critique them.",
     options: [
@@ -161,7 +164,7 @@ const questions = [
     construct: "Systems Thinking",
     area: "Architecture Comprehension",
     prompt:
-      "I sometimes merge AI-generated code even when I cannot clearly explain data flow, edge cases, and failure modes.",
+      "Scenario: AI gives a large refactor that appears to pass tests. How do you decide whether to merge?",
     recommendation:
       "Adopt a merge gate: explain integration path and 2 failure cases before accepting AI output.",
     options: [
@@ -192,7 +195,7 @@ const questions = [
     construct: "Brain Debug Muscle",
     area: "Debugging Muscle",
     prompt:
-      "Even for recurring bugs, I prefer auto-fix/quick-fix over breakpoints, logs, and step-through debugging.",
+      "Scenario: A recurring bug returns for the third time this sprint. What debugging workflow do you follow?",
     recommendation:
       "For recurring bugs, force a debugger-first workflow before using auto-fix suggestions.",
     options: [

@@ -44,6 +44,30 @@ body {
   border: 1px solid #bbd5ff;
 }
 
+.app-evidence {
+  border: 1px solid #dce8ff;
+  border-radius: 12px;
+  background: #f7faff;
+  padding: 12px 14px;
+  margin: 0 0 18px;
+}
+
+.app-method-list,
+.app-ref-list {
+  margin: 0 0 8px;
+}
+
+.app-method-list li,
+.app-ref-list li {
+  margin-bottom: 5px;
+}
+
+.app-evidence summary {
+  cursor: pointer;
+  font-weight: 600;
+  color: #12335f;
+}
+
 .app-row-meta {
   margin-bottom: 8px;
 }
@@ -60,6 +84,11 @@ body {
 .app-question {
   margin: 0;
   line-height: 1.4;
+}
+
+.app-question-helper {
+  margin: 10px 0 0;
+  font-size: 0.9rem;
 }
 
 .app-fieldset {
