@@ -1,7 +1,16 @@
 {
   "name": "ai-cognitive-offload-tool",
-  "private": true,
+  "private": false,
   "version": "1.0.0",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/opensourcevk/ai-cognitive-offload-tool.git"
+  },
+  "bugs": {
+    "url": "https://github.com/opensourcevk/ai-cognitive-offload-tool/issues"
+  },
+  "homepage": "https://opensourcevk.github.io/ai-cognitive-offload-tool/",
   "type": "module",
   "scripts": {
     "dev": "vite",

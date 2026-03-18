@@ -45,3 +45,11 @@ pnpm run test:run
 
 For Pages in repository settings, set:
 - Build and deployment source: `GitHub Actions`
+
+## Open source project docs
+
+- License: [Apache-2.0](./LICENSE)
+- Contributing: [CONTRIBUTING.md](./CONTRIBUTING.md)
+- Code of Conduct: [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md)
+- Security: [SECURITY.md](./SECURITY.md)
+- Agent guidance: [AGENTS.md](./AGENTS.md)
