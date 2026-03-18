@@ -21,20 +21,20 @@ Key references used while crafting constructs:
 ## Run locally
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm run dev
 ```
 
 ## Run unit tests
 
 ```bash
-npm test
+pnpm test
 ```
 
 or one-shot in CI style:
 
 ```bash
-npm run test:run
+pnpm run test:run
 ```
 
 ## GitHub Actions and deployment
