@@ -229,6 +229,7 @@ export default function App() {
                 <legend className="sr-only">Select one answer</legend>
                 {currentQuestion.options.map((option) => {
                   const inputId = `question-${currentQuestion.id}-${option.value}`;
+                  const hintId = `hint-${currentQuestion.id}-${option.value}`;
                   return (
                     <div
                       key={`${currentQuestion.id}-${option.value}`}
@@ -239,6 +240,7 @@ export default function App() {
                       <label htmlFor={inputId} className="app-option-label">
                         <input
                           id={inputId}
+                          aria-describedby={hintId}
                           data-testid={`option-${option.value}`}
                           className="with-gap"
                           type="radio"
@@ -249,7 +251,7 @@ export default function App() {
                         />
                         <span>{option.title}</span>
                       </label>
-                      <small className="app-option-hint" aria-hidden="true">
+                      <small id={hintId} className="app-option-hint">
                         {option.scenario}
                       </small>
                     </div>
