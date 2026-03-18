@@ -9,6 +9,7 @@ permissions:
 jobs:
   dependency-review:
     runs-on: ubuntu-latest
+    if: false # Dependency graph is not enabled on this repo causing failure
     steps:
       - name: Dependency Review
         uses: actions/dependency-review-action@v4
