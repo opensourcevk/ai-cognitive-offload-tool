@@ -2,9 +2,9 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 
-async function answerAllQuestions(user, optionLabel) {
+async function answerAllQuestions(user, optionValue) {
   for (let index = 0; index < 7; index += 1) {
-    await user.click(screen.getByLabelText(optionLabel));
+    await user.click(screen.getByTestId(`option-${optionValue}`));
 
     const isLastQuestion = index === 6;
     await user.click(
@@ -32,7 +32,7 @@ describe("Cognitive Decay Diagnostic", () => {
     const nextButton = screen.getByRole("button", { name: /next/i });
     expect(nextButton).toBeDisabled();
 
-    await user.click(screen.getByLabelText(/^Agree$/i));
+    await user.click(screen.getByTestId("option-1"));
     expect(nextButton).toBeEnabled();
   });
 
@@ -41,7 +41,7 @@ describe("Cognitive Decay Diagnostic", () => {
     render(<App />);
 
     await user.click(screen.getByRole("button", { name: /start test/i }));
-    await answerAllQuestions(user, "Strongly Disagree");
+    await answerAllQuestions(user, 3);
 
     expect(screen.getByText("10 / 10")).toBeInTheDocument();
     expect(
@@ -54,11 +54,15 @@ describe("Cognitive Decay Diagnostic", () => {
     render(<App />);
 
     await user.click(screen.getByRole("button", { name: /start test/i }));
-    await answerAllQuestions(user, "Strongly Agree");
+    await answerAllQuestions(user, 0);
 
     expect(screen.getByText("0 / 10")).toBeInTheDocument();
     expect(
       screen.getByRole("heading", { name: /atrophy risk/i })
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: /most impacted areas/i })
+    ).toBeInTheDocument();
+    expect(screen.getAllByText(/debugging muscle/i).length).toBeGreaterThan(0);
   });
 });

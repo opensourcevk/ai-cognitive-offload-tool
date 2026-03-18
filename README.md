@@ -1,8 +1,9 @@
 # The Cognitive Decay Diagnostic
 
-A single-page React app that measures AI Decay risk and computes a Cognitive Sustainability Score (0-10) from a 7-question Likert assessment.
+A single-page React app that measures AI Decay risk and computes a Cognitive Sustainability Score (0-10) from a 7-question scenario-based assessment.
 
 Styling uses Material Design via Materialize CSS (CDN).
+Results include area-level impact insights (for example, Debugging Muscle) with targeted recovery drills.
 
 ## Run locally
 
