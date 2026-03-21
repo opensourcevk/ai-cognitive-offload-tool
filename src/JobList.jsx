@@ -1,20 +1,53 @@
-import React from 'react';
-import { Container, Typography, Card, CardContent, Chip, Box, Avatar, Grid, Button } from '@mui/material';
-import { mockData } from './mockData';
+import React, { useState, useEffect } from 'react';
+import { Container, Typography, Card, CardContent, Chip, Box, Avatar, Grid, Button, CircularProgress } from '@mui/material';
+import { fetchLinkedInJobs } from './api/linkedin';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import WorkOutlineOutlinedIcon from '@mui/icons-material/WorkOutlineOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 
 export default function JobList() {
+  const [jobs, setJobs] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const loadJobs = async () => {
+      try {
+        const linkedInJobs = await fetchLinkedInJobs();
+        if (mounted) {
+          setJobs(linkedInJobs);
+        }
+      } catch (error) {
+        console.error("Failed to fetch jobs from LinkedIn API", error);
+      } finally {
+        if (mounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    loadJobs();
+
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
   return (
     <Container maxWidth="lg" sx={{ py: 6 }}>
       <Typography variant="h4" fontWeight="bold" sx={{ mb: 4, textAlign: 'left' }}>
         Find Your Perfect Job
       </Typography>
 
+      {loading ? (
+        <Box sx={{ display: 'flex', justifyContent: 'center', my: 8 }}>
+          <CircularProgress />
+        </Box>
+      ) : (
       <Grid container spacing={3}>
-        {mockData.map((job) => (
+        {jobs.map((job) => (
           <Grid size={{ xs: 12 }} key={job.id}>
             <Card variant="outlined" sx={{ borderRadius: 3, display: 'flex', alignItems: 'flex-start', p: 2, '&:hover': { boxShadow: 3 } }}>
 
@@ -69,6 +102,7 @@ export default function JobList() {
           </Grid>
         ))}
       </Grid>
+      )}
 
       <Box sx={{ textAlign: 'center', mt: 4 }}>
         <Button variant="outlined" color="primary" size="large">
